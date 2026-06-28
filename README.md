@@ -1,4 +1,4 @@
-## Clash Exporter (Rougnt Fork)
+## Clash Exporter (rogunt Fork)
 
 This is an optimized and robust exporter for Clash, designed for use by [Prometheus](https://prometheus.io/) to monitor network traffic, bandwidth, and connection policies, and visualize them using Grafana.
 
@@ -43,7 +43,7 @@ In a typical setup, local or direct (LAN) traffic generates a massive number of 
 
 #### Run as a CLI command
 
-Download the binary for your architecture from the [Releases](https://github.com/Rougnt/clash-exporter/releases) page.
+Download the binary for your architecture from the [Releases](https://github.com/rogunt/clash-exporter/releases) page.
 
 ```sh
 ➜  ./clash-exporter -h
@@ -63,7 +63,7 @@ Usage of ./clash-exporter:
 #### Deploy with Docker Compose
 
 ```sh
-git clone https://github.com/Rougnt/clash-exporter
+git clone https://github.com/rogunt/clash-exporter
 cd clash-exporter
 
 # Review docker-compose.yml and set your Clash API host and tokens
