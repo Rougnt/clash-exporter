@@ -13,6 +13,7 @@ type Collector interface {
 type CollectConfig struct {
 	CollectDest    bool
 	CollectTracing bool
+	ExcludeDirect  bool
 	ClashHost      string
 	ClashToken     string
 }

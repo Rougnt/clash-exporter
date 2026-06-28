@@ -17,7 +17,7 @@ This is an exporter for Clash, for used by the [Prometheus](https://prometheus.i
 
 #### run in command
 
-Go to https://github.com/zxh326/clash-exporter/releases download latest release binary file
+Go to https://github.com/Rogunt/clash-exporter/releases download latest release binary file
 
 ```sh
 ➜  ./clash-exporter -h
@@ -35,7 +35,7 @@ Usage of ./clash-exporter:
 #### deploy with docker compose
 
 ```sh
-git clone https://github.com/zxh326/clash-exporter
+git clone https://github.com/Rogunt/clash-exporter
 
 # check docker-compose.yml and update environment
 cat docker-compose.yml

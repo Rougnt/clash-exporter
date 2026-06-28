@@ -20,7 +20,7 @@ services:
       - ./prometheus/:/etc/prometheus/
       - ./prometheus/data:/prometheus
   clash-exporter:
-    image: zzde/clash-exporter:latest
+    build: .
     container_name: clash-exporter
     entrypoint:
       ["/app/clash-exporter", "-collectTracing=true", "-collectDest=true"]

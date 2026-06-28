@@ -80,10 +80,18 @@ func (c *Connection) Collect(config CollectConfig) error {
 		}
 		uploadTotal.WithLabelValues().Set(float64(m.UploadTotal))
 		downloadTotal.WithLabelValues().Set(float64(m.DownloadTotal))
-		activeConnections.WithLabelValues().Set(float64(len(m.Connections)))
 
+		activeCount := 0
 		activeConnectionsMap := make(map[string]interface{})
 		for _, connection := range m.Connections {
+			chain := "DIRECT"
+			if len(connection.Chains) > 0 {
+				chain = connection.Chains[0]
+			}
+			if config.ExcludeDirect && chain == "DIRECT" {
+				continue
+			}
+			activeCount++
 			if _, ok := c.connectionCache[connection.ID]; !ok {
 				c.connectionCache[connection.ID] = Connections{
 					Upload:   0,
@@ -97,11 +105,13 @@ func (c *Connection) Collect(config CollectConfig) error {
 			if !config.CollectDest {
 				destination = ""
 			}
-			networkTrafficTotal.WithLabelValues(connection.Metadata.SourceIP, destination, connection.Chains[0], "download").Add(float64(connection.Download) - float64(c.connectionCache[connection.ID].Download))
-			networkTrafficTotal.WithLabelValues(connection.Metadata.SourceIP, destination, connection.Chains[0], "upload").Add(float64(connection.Upload) - float64(c.connectionCache[connection.ID].Upload))
+			networkTrafficTotal.WithLabelValues(connection.Metadata.SourceIP, destination, chain, "download").Add(float64(connection.Download) - float64(c.connectionCache[connection.ID].Download))
+			networkTrafficTotal.WithLabelValues(connection.Metadata.SourceIP, destination, chain, "upload").Add(float64(connection.Upload) - float64(c.connectionCache[connection.ID].Upload))
 			c.connectionCache[connection.ID] = connection
 			activeConnectionsMap[connection.ID] = nil
 		}
+		activeConnections.WithLabelValues().Set(float64(activeCount))
+
 		for id := range c.connectionCache {
 			if _, ok := activeConnectionsMap[id]; !ok {
 				delete(c.connectionCache, id)

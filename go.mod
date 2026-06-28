@@ -1,4 +1,4 @@
-module github.com/zxh326/clash-exporter
+module github.com/Rogunt/clash-exporter
 
 go 1.20
 
