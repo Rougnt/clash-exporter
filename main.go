@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/Rogunt/clash-exporter/collector"
+	"github.com/Rougnt/clash-exporter/collector"
 )
 
 var collectDest bool
