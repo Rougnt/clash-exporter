@@ -1807,7 +1807,6 @@
         "definition": "label_values(clash_network_traffic_bytes_total, policy)",
         "hide": 0,
         "includeAll": true,
-        "allValue": "^(?!DIRECT$).*",
         "label": "policy",
         "multi": true,
         "name": "policy",
@@ -1817,7 +1816,7 @@
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
-        "regex": "",
+        "regex": "/^(?!DIRECT$)(.*)/",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
