@@ -48,10 +48,10 @@ func (t *Tracing) Collect(config CollectConfig) error {
 	}
 	conn, resp, err := websocket.Dial(ctx, endpoint, nil)
 	if err != nil {
-		if resp.StatusCode == http.StatusNotFound {
-			log.Fatal("profile tracing is not enabled in Clash, please enable it first, or use `-collectTracing=false` disable this collector. \nFYI: https://github.com/Dreamacro/clash/wiki/Clash-Premium-Features#tracing")
+		if resp != nil && resp.StatusCode == http.StatusNotFound {
+			return errors.New("profile tracing is not enabled in Clash, please enable it first, or use `-collectTracing=false` disable this collector. \nFYI: https://github.com/Dreamacro/clash/wiki/Clash-Premium-Features#tracing")
 		}
-		log.Fatal("tracing: failed to dial: ", err)
+		return errors.Wrap(err, "tracing: failed to dial")
 	}
 
 	conn.SetReadLimit(1024 * 1024)

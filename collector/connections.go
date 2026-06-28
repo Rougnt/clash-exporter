@@ -66,7 +66,7 @@ func (c *Connection) Collect(config CollectConfig) error {
 	}
 	conn, _, err := websocket.Dial(ctx, endpoint, nil)
 	if err != nil {
-		log.Fatal("failed to dial: ", err)
+		return errors.Wrap(err, "failed to dial connections websocket")
 	}
 
 	conn.SetReadLimit(10 * 1024 * 1024)

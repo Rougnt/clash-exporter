@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -42,7 +41,7 @@ func (*Info) Collect(config CollectConfig) error {
 	defer resp.Body.Close()
 	responseBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal("version: failed to read response body: ", err)
+		return fmt.Errorf("version: failed to read response body: %w", err)
 	}
 	if responseBody == nil {
 		return nil
